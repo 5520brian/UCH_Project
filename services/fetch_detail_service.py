@@ -1,9 +1,8 @@
 from routes import db
 
 def get_risk_detail(rkid, severity):
-    TbName = "risk_" + severity.lower()
     cur = db.connection.cursor()
-    cur.execute(f"SELECT risk_name, risk_description, risk_solution FROM {TbName} WHERE risk_id = '{rkid}'")
+    cur.execute(f"SELECT risk_name, risk_description, risk_solution FROM risks WHERE risk_id = '{rkid}'")
     row = cur.fetchone()
     cur.close()
 
