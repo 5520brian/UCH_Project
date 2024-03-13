@@ -1,0 +1,81 @@
+.text-small {
+    font-size: 85%;
+}
+
+.dropdown-toggle:not(:focus) {
+    outline: 0;
+}
+
+.dropdown-menu #louout-btn {
+    color: var(--bs-danger);
+    font-size: 16px;
+}
+
+.dropdown-menu #username {
+    cursor: default;
+}
+
+.feature-icon-small {
+    width: 3rem;
+    height: 3rem;
+}
+
+.email-input {
+    width: 80% !important;
+}
+
+/* pie chart css setting */
+.pie-row {
+    width: 100%;
+    display: flex;
+}
+
+.pie-set {
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 990px) {
+    img {
+        width: 100%;
+    }
+
+    .pie-row {
+        flex-direction: column;
+    }
+
+    .pie-set {
+        border: none !important;
+        width: 100%;
+        margin-bottom: 2rem !important;
+    }
+
+    .pie-line {
+        display: none;
+    }
+
+    .pie-header {
+        font-size: calc(1.475rem + 2.7vw) !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+    }
+}
+
+@media (max-width: 1199.17px) {
+    .pie-header {
+        font-size: calc(1.425rem + 2.1vw);
+    }
+}
+
+.risk-analysis-pie-chart {
+    width: 100%;
+    margin: 0 auto;
+}
+
+canvas {
+    width: 300px;
+    height: 300px;
+}

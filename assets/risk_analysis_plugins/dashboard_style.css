@@ -1,0 +1,127 @@
+.bi {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*
+   * Sidebar
+   */
+
+@media (min-width: 768px) {
+    .sidebar .offcanvas-lg {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 48px;
+    }
+
+    .navbar-search {
+        display: block;
+    }
+}
+
+.sidebar .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.sidebar .nav-link.active {
+    color: #2470dc;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+}
+
+/*
+   * Navbar
+   */
+
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+}
+
+.risk-grade-checkbox {
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .list-name {
+        display: none;
+    }
+
+    .risk-grade-checkbox {
+        margin: 0;
+        width: 100%;
+    }
+
+    label,
+    span {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    .data-style {
+        margin-bottom: 2rem;
+    }
+}
+
+.table-header {
+    display: flex;
+}
+
+.risk-name {
+    cursor: pointer;
+}
+
+.list-group {
+    flex-direction: row;
+}
+
+.checkbox-style,
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+.detail-info {
+    display: none;
+}
+
+.back-to-table-btn {
+    display: none;
+}
+
+.sort-button {
+    cursor: pointer;
+}

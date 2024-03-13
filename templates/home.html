@@ -1,0 +1,410 @@
+{% extends 'base.html' %}
+
+{% block plugins %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="/assets/home_plugins/home_style.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+<header class="p-3 mb-5 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="bi me-1" width="40"
+                        height="32">
+                        <path
+                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zm-312 8v64c0 13.3 10.7 24 24 24s24-10.7 24-24l0-64c0-13.3-10.7-24-24-24s-24 10.7-24 24zm80-96V280c0 13.3 10.7 24 24 24s24-10.7 24-24V120c0-13.3-10.7-24-24-24s-24 10.7-24 24zm80 64v96c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+                    </svg>
+                    <span class="fs-4 fw-bold">網頁弱點分析</span>
+                </a>
+            </div>
+
+            <ul class="nav col-13 col-md-auto justify-content-center mb-md-0">
+                {% if current_user.is_authenticated %}
+                <li>
+                    <a href="{{ url_for('risk_analysis', website_name='nessus_social') }}"
+                        class="nav-link px-2 fw-bold">社交類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('risk_analysis', website_name='nessus_application') }}"
+                        class="nav-link px-2 fw-bold">應用類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('risk_analysis', website_name='nessus_transaction') }}"
+                        class="nav-link px-2 fw-bold">交易類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('risk_analysis', website_name='nessus_information') }}"
+                        class="nav-link px-2 fw-bold">資訊類網站</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ url_for('login_page') }}" class="nav-link px-2 fw-bold">社交類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login_page') }}" class="nav-link px-2 fw-bold">應用類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login_page') }}" class="nav-link px-2 fw-bold">交易類網站</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login_page') }}" class="nav-link px-2 fw-bold">資訊類網站</a>
+                </li>
+                {% endif %}
+            </ul>
+
+
+            <div class="d-flex col-md-3 mb-2 mb-md-0 justify-content-end">
+                {% if current_user.is_authenticated %}
+                <div class="dropdown text-end" id="user-info">
+                    <a href="#"
+                        class="d-flex link-body-emphasis text-decoration-none dropdown-toggle align-items-center"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" alt="mdo"
+                            class="bi text-primary me-2" width="40" hight="32">
+                            <path
+                                d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z" />
+                        </svg>
+                    </a>
+
+                    <ul class="dropdown-menu text-small text-end">
+                        <li>
+                            <span id="username"
+                                class="dropdown-item fs-4 text-link-color fw-bold">{{current_user.username}}</span>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a href="{{ url_for('logout_page') }}" class="text-decoration-none">
+                                <button type="button" id="louout-btn" class="dropdown-item fw-bold">登出</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{{ url_for('login_page') }}">
+                    <button type="button" class="btn btn-outline-primary fw-bold">登入</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="middle">
+    <div class="container">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+            <div class="col-lg-7 p-3 p-lg-4 pt-lg-3">
+                <h1 class="display-4 fw-bold lh-1">網頁弱點分析</h1>
+                <p class="lead">我們提供各種類型網站的弱點分析報告，幫助您了解網站的安全漏洞與風險。</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">了解更多</button>
+                    <button type="button" class="btn btn-outline-primary btn-lg px-4 fw-bold">按鈕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4 py-5">
+        <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+            <div class="col d-flex flex-column align-items-start gap-2">
+                <h2 class="display-4 fw-bold lh-1">網頁弱點分析</h2>
+                <p class="lead">我們提供各類網站的弱點分析報告，幫助您保護網站安全。</p>
+                <a href="#" class="btn btn-primary btn-lg">查看詳情</a>
+            </div>
+
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-2 g-4">
+                    <div class="col d-flex flex-column gap-2">
+                        <div
+                            class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="bi" width="1em"
+                                height="1em">
+                                <path
+                                    d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8V128h-.7l-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48V352h28.2l91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16V352c0 17.7 14.3 32 32 32H64c17.7 0 32-14.3 32-32V128H16zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128V352c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V144c0-8.8-7.2-16-16-16H544zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z" />
+                            </svg>
+                        </div>
+                        <h4 class="fw-semibold mb-1">社交類網站</h4>
+                        <p class="lead2 fw-bold">針對社交網站的弱點進行深入分析，保護用戶隱私。</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <div
+                            class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="bi" width="1em" height="1em"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+                                <path
+                                    d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1M2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1z" />
+                            </svg>
+                        </div>
+                        <h4 class="fw-semibold mb-1">應用類網站</h4>
+                        <p class="lead2 fw-bold">分析應用網站的弱點，提供安全建議和解決方案。</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <div
+                            class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="bi" width="1em"
+                                height="1em">
+                                <path
+                                    d="M312 24V34.5c6.4 1.2 12.6 2.7 18.2 4.2c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17c-10.9-2.9-21.1-4.9-30.2-5c-7.3-.1-14.7 1.7-19.4 4.4c-2.1 1.3-3.1 2.4-3.5 3c-.3 .5-.7 1.2-.7 2.8c0 .3 0 .5 0 .6c.2 .2 .9 1.2 3.3 2.6c5.8 3.5 14.4 6.2 27.4 10.1l.9 .3c11.1 3.3 25.9 7.8 37.9 15.3c13.7 8.6 26.1 22.9 26.4 44.9c.3 22.5-11.4 38.9-26.7 48.5c-6.7 4.1-13.9 7-21.3 8.8V232c0 13.3-10.7 24-24 24s-24-10.7-24-24V220.6c-9.5-2.3-18.2-5.3-25.6-7.8c-2.1-.7-4.1-1.4-6-2c-12.6-4.2-19.4-17.8-15.2-30.4s17.8-19.4 30.4-15.2c2.6 .9 5 1.7 7.3 2.5c13.6 4.6 23.4 7.9 33.9 8.3c8 .3 15.1-1.6 19.2-4.1c1.9-1.2 2.8-2.2 3.2-2.9c.4-.6 .9-1.8 .8-4.1l0-.2c0-1 0-2.1-4-4.6c-5.7-3.6-14.3-6.4-27.1-10.3l-1.9-.6c-10.8-3.2-25-7.5-36.4-14.4c-13.5-8.1-26.5-22-26.6-44.1c-.1-22.9 12.9-38.6 27.7-47.4c6.4-3.8 13.3-6.4 20.2-8.2V24c0-13.3 10.7-24 24-24s24 10.7 24 24zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z" />
+                            </svg>
+                        </div>
+                        <h4 class="fw-semibold mb-1">交易類網站</h4>
+                        <p class="lead2 fw-bold">防範潛在的風險，保護用戶數據和金融交易的安全。</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <div
+                            class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="bi" width="1em"
+                                height="1em">
+                                <path
+                                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                            </svg>
+                        </div>
+                        <h4 class="fw-semibold mb-1">資訊類網站</h4>
+                        <p class="lead2 fw-bold">確保資訊網站安全性和系統運作的穩定性，以保護數據。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+            <div class="col">
+                <h1 class="pb-2 border-bottom display-4 fw-bold">Nessus 數據統計</h1>
+                <p class="lead2 fw-bold">我們已收集了133個網站，其中有91個網站被拒絕訪問。</p>
+                <div class="row row-cols-1 row-cols-sm-2 g-4">
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">133</h2>
+                        <p class="lead2 fw-bold">已收集網站數量</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">91</h2>
+                        <p class="lead2 fw-bold">被拒絕訪問的網站數量</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">68%</h2>
+                        <p class="lead2 fw-bold">拒絕訪問率</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">32%</h2>
+                        <p class="lead2 fw-bold">成功訪問率</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h1 class="pb-2 border-bottom display-4 fw-bold">OWASP ZAP 數據統計</h1>
+                <p class="lead2 fw-bold">我們已收集了50個網站，其中有7個網站被拒絕訪問。</p>
+                <div class="row row-cols-1 row-cols-sm-2 g-4">
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">50</h2>
+                        <p class="lead2 fw-bold">已收集網站數量</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">7</h2>
+                        <p class="lead2 fw-bold">被拒絕訪問的網站數量</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">14%</h2>
+                        <p class="lead2 fw-bold">拒絕訪問率</p>
+                    </div>
+
+                    <div class="col d-flex flex-column gap-2">
+                        <h2 class="fw-semibold mb-1">86%</h2>
+                        <p class="lead2 fw-bold">成功訪問率</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4 py-5">
+        <h1 class="border-bottom mb-4 fw-bold display-4">Nessus 弱掃圓餅圖</h1>
+        <div class="pie-row">
+            <div class="pie-set border-end">
+                <h1 class="display-4 mb-4 fw-bold pie-header">社交類網站風險分布</h1>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="social_website_pie_chart"></canvas>
+                </div>
+            </div>
+
+            <div class="pie-set">
+                <h2 class="display-4 mb-4 fw-bold pie-header">應用類網站風險分布</h2>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="application_website_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <hr class="pie-line">
+
+        <div class="pie-row">
+            <div class="pie-set border-end">
+                <h2 class="display-4 mb-4 fw-bold pie-header">交易類網站風險分布</h2>
+                <div class=" risk-analysis-pie-chart">
+                    <canvas id="transaction_website_pie_chart"></canvas>
+                </div>
+            </div>
+
+            <div class="pie-set">
+                <h2 class="display-4 mb-4 fw-bold pie-header">資訊類網站風險分布</h2>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="information_website_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4 py-5">
+        <h1 class="border-bottom mb-4 fw-bold display-4">OWASP ZAP 弱掃圓餅圖</h1>
+        <div class="pie-row">
+            <div class="pie-set border-end">
+                <h1 class="display-4 mb-4 fw-bold pie-header">社交類網站風險分布</h1>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="zap_social_website_pie_chart"></canvas>
+                </div>
+            </div>
+
+            <div class="pie-set">
+                <h2 class="display-4 mb-4 fw-bold pie-header">應用類網站風險分布</h2>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="zap_application_website_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <hr class="pie-line">
+
+        <div class="pie-row">
+            <div class="pie-set border-end">
+                <h2 class="display-4 mb-4 fw-bold pie-header">交易類網站風險分布</h2>
+                <div class=" risk-analysis-pie-chart">
+                    <canvas id="zap_transaction_website_pie_chart"></canvas>
+                </div>
+            </div>
+
+            <div class="pie-set">
+                <h2 class="display-4 mb-4 fw-bold pie-header">資訊類網站風險分布</h2>
+                <div class="risk-analysis-pie-chart">
+                    <canvas id="zap_information_website_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <footer class="py-5">
+            <div class="row">
+                <div class="col-6 col-md-2 mb-3">
+                    <h4 class="fw-bold mb-3">關於我們</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="{{ url_for('about_page', title='team') }}" class="nav-link p-0">關於我們</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{ url_for('about_page', title='contact') }}" class="nav-link p-0">聯繫我們</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{ url_for('about_page', title='service') }}" class="nav-link p-0">服務條款</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2 mb-3">
+                    <h4 class="fw-bold mb-3">使用者須知</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="{{ url_for('instruct_page', title='privacy') }}" class="nav-link p-0">隱私政策</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{ url_for('instruct_page', title='disclaimer') }}" class="nav-link p-0">免責聲明</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-5 offset-md-1 mb-3">
+                    <form>
+                        <h4 class="mb-3 fw-bold">網頁弱點分析</h4>
+                        <p>網頁弱點分析網站提供關於社交類網站、應用類網站、交易類網站和資訊類網站的弱點分析報告，幫助用戶了解網站的安全性和風險。</p>
+                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                            <label for="newsletter1" class="visually-hidden">Email address</label>
+                            <input id="newsletter1" type="text" class="form-control" placeholder="請輸入您的 Email">
+                            <button class="btn btn-primary" type="button">訂閱</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="bootstrap" viewBox="0 0 118 94">
+                    <title>Bootstrap</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+                    </path>
+                </symbol>
+                <symbol id="facebook" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                </symbol>
+                <symbol id="instagram" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                </symbol>
+                <symbol id="twitter" viewBox="0 0 16 16">
+                    <path
+                        d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                </symbol>
+            </svg>
+
+            <div class=" d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <p>&copy; 2024 產品版權所有。保留所有權利。</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="#">
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#twitter" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="#">
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#instagram" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="#">
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#facebook" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="/assets/home_plugins/pie_chart.js"></script>
+{% endblock %}
