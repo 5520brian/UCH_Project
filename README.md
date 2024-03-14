@@ -14,4 +14,5 @@
 ![](diagram.png)
 # 聯繫方式
 如果你有任何問題或建議，請聯繫：
-電子郵件：ivan90601408@gmail.com
+* 電子郵件：ivan90601408@gmail.com
+* Github：https://github.com/choufat55
