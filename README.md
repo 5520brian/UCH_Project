@@ -7,3 +7,4 @@
 * 透過 PHP Composer 將 Excel 資料匯入資料庫，實現資料的有效管理和利用。
 * 使用 VMware 架設 Ubuntu OS，並配置 Nginx 伺服器，提供網站的服務。
 * 通過 OpenSSL 自簽 SSL 憑證，提供安全的 HTTPS 連接。
+# 資料庫關聯圖
