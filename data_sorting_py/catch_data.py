@@ -11,7 +11,7 @@ urllib3.disable_warnings() #若不加 import urllib3 可刪除這行
 # 需要修改的參數為以下
 #---------------------------------------------------------------------------------------------
 # 修改方式:先打開Nessus，選擇以掃描完的網站點進去，瀏覽器網址的上的網址最後會有一個數字
-# 例如 https://localhost:8834/#/scans/reports/28/scan-summary，就以reports後面那個數字去替換schedule_id的"24"
+# 例如 https://localhost:8834/#/scans/reports/24/scan-summary，就以reports後面那個數字去替換schedule_id的"24"
 schedule_id = 24
 
 # 副檔名一律為.xlsx，修改檔案路徑
