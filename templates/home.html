@@ -11,7 +11,8 @@
 {% block content %}
 <header class="p-3 mb-5 border-bottom">
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between"
+            id="home-title">
             <div class="col-md-3 mb-2 mb-md-0">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="bi me-1" width="40"
@@ -58,7 +59,7 @@
             </ul>
 
 
-            <div class="d-flex col-md-3 mb-2 mb-md-0 justify-content-end">
+            <div class="d-flex col-md-3 mb-2 mb-md-0 justify-content-end" id="sign">
                 {% if current_user.is_authenticated %}
                 <div class="dropdown text-end" id="user-info">
                     <a href="#"
