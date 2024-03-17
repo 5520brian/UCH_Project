@@ -6,7 +6,7 @@ const myChart = new Chart(ctx, {
         labels: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'],
         datasets: [{
             label: '風險數量',
-            data: [2, 34, 0, 4],
+            data: chartData[0],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.7)',
                 'rgba(255, 159, 64, 0.7)',
