@@ -325,7 +325,9 @@
     integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
     </script>
 
-{% block bar_chart %}
-{% endblock %}
+<script>
+    var chartData = {{ chart_data| tojson }};
+</script>
+<script src="/assets/risk_analysis_plugins/nessus_bar-chart.js"></script>
 <script src="/assets/risk_analysis_plugins/monitor-table-checkbox.js"></script>
 {% endblock %}
