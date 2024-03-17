@@ -9,7 +9,12 @@ class GetWebsiteRiskData():
         cur.execute(f"SELECT collection, rejected FROM websites WHERE website_name = '{self.website_name}'")
         result = cur.fetchone()
         collection, rejected = result
-        return collection, rejected
+
+        cur.execute(f"SELECT low_risk_quantity, medium_risk_quantity, high_risk_quantity, critical_risk_quantity FROM websites WHERE website_name = '{self.website_name}'")
+        chart_data = cur.fetchall()
+
+        cur.close()
+        return collection, rejected, chart_data
 
     def get_nessus_risks(self):
         cur = db.connection.cursor()
