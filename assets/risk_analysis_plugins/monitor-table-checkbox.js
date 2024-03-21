@@ -131,9 +131,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const target = event.target;
         if (target.classList.contains('risk-name')) {
             const id = target.dataset.id;
-            const severity = target.parentElement.firstElementChild.textContent.trim();
 
-            fetch(`/fetch_detail?id=${id}&severity=${severity}`)
+            fetch(`/fetch_detail?id=${id}`)
                 .then(response => response.json())
                 .then(data => {
                     tableContainer.style.display = 'none';
