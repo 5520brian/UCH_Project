@@ -37,8 +37,7 @@ def risk_analysis(website_name):
 @app.route("/fetch_detail")
 def fetch_detail():
   rkid = request.args.get('id')
-  severity = request.args.get('severity')
 
-  data = get_risk_detail(rkid, severity)
+  data = get_risk_detail(rkid)
 
   return jsonify(data)
