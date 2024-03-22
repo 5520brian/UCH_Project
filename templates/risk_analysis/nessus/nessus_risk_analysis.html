@@ -189,7 +189,7 @@
                 <div class="mb-2 mb-md-0">
                     <div class="d-flex">
                         <div class="px-3">
-                            <h2 class="fw-bold">Nessus</h2>
+                            <h2 class="fw-bold">OWASP ZAP</h2>
                             <h1 class="display-4 fw-bold">
                                 {% block title %}
                                 {% endblock %}
@@ -237,11 +237,6 @@
                                 id="high" data-risk-level="HIGH" />
                             <span>HIGH</span>
                         </label>
-                        <label class="list-group-item d-flex gap-2 border-top checkbox-style">
-                            <input class="form-check-input flex-shrink-0 risk-severity-checkbox" type="checkbox" value
-                                id="critical" data-risk-level="CRITICAL" />
-                            <span>CRITICAL</span>
-                        </label>
                     </div>
                 </div>
             </div>
@@ -262,44 +257,33 @@
                         {% for row in low_risk %}
                         <tr class='risk-level-row' data-risk-level='LOW'>
                             <td>LOW</td>
-                            <td class='text-primary risk-name' data-id='{{ row[3] }}'>
-                                {{ row[0] }}
+                            <td class='text-primary risk-name' data-id='{{ row[0] }}'>
+                                {{ row[1] }}
                             </td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }} 筆</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }} 筆</td>
                         </tr>
                         {% endfor %}
 
                         {% for row in medium_risk %}
                         <tr class='risk-level-row' data-risk-level='MEDIUM'>
                             <td>MEDIUM</td>
-                            <td class='text-primary risk-name' data-id='{{ row[3] }}'>
-                                {{ row[0] }}
+                            <td class='text-primary risk-name' data-id='{{ row[0] }}'>
+                                {{ row[1] }}
                             </td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }} 筆</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }} 筆</td>
                         </tr>
                         {% endfor %}
 
                         {% for row in high_risk %}
                         <tr class='risk-level-row' data-risk-level='HIGH'>
                             <td>HIGH</td>
-                            <td class='text-primary risk-name' data-id='{{ row[3] }}'>
-                                {{ row[0] }}
+                            <td class='text-primary risk-name' data-id='{{ row[0] }}'>
+                                {{ row[1] }}
                             </td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }} 筆</td>
-                        </tr>
-                        {% endfor %}
-
-                        {% for row in critical_risk %}
-                        <tr class='risk-level-row' data-risk-level='CRITICAL'>
-                            <td>CRITICAL</td>
-                            <td class='text-primary risk-name' data-id='{{ row[3] }}'>
-                                {{ row[0] }}
-                            </td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }} 筆</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }} 筆</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -324,6 +308,6 @@
 <script>
     var chartData = {{ chart_data| tojson }};
 </script>
-<script src="/assets/risk_analysis_plugins/nessus_bar-chart.js"></script>
+<script src="/assets/risk_analysis_plugins/zap_bar-chart.js"></script>
 <script src="/assets/risk_analysis_plugins/monitor-table-checkbox.js"></script>
 {% endblock %}
