@@ -125,3 +125,7 @@ input[type=checkbox] {
 .sort-button {
     cursor: pointer;
 }
+
+#change-bg-btn {
+    display: none !important;
+}
