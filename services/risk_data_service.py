@@ -35,13 +35,13 @@ class GetWebsiteRiskData():
 
     def get_zap_risks(self):
         cur = db.connection.cursor()
-        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_id = 'low'")
+        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_severity = 'low'")
         rklow = cur.fetchall()
 
-        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_id = 'medium'")
+        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_severity = 'medium'")
         rkmedium = cur.fetchall()
 
-        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_id = 'high'")
+        cur.execute(f"SELECT r.risk_id, r.risk_name, r.risk_synopsis ,wr.risk_quantity FROM website_risks wr JOIN websites w ON wr.website_id = w.website_id JOIN risks r ON wr.risk_id = r.risk_id WHERE w.website_name = '{self.website_name}' AND r.risk_severity = 'high'")
         rkhigh = cur.fetchall()
 
         cur.close()
