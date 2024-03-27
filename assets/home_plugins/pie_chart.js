@@ -213,7 +213,7 @@ var InformationWebsitePieChart = new Chart(ctx4, {
 });
 
 // zap_information_website_pie_chart
-var zap_information_low = 145; var zap_information_medium = 81; var zap_information_high = 10;
+var zap_information_low = 147; var zap_information_medium = 104; var zap_information_high = 10;
 var zap_information_risk_quantity = zap_information_low + zap_information_medium + zap_information_high;
 
 var zap_information_website_pieData = {
@@ -262,7 +262,7 @@ var ZapInformationWebsitePieChart = new Chart(ctx5, {
 });
 
 // zap_transaction_website_pie_chart
-var zap_transaction_low = 112; var zap_transaction_medium = 58; var zap_transaction_high = 6;
+var zap_transaction_low = 127; var zap_transaction_medium = 76; var zap_transaction_high = 6;
 var zap_transaction_risk_quantity = zap_transaction_low + zap_transaction_medium + zap_transaction_high;
 
 var zap_transaction_website_pieData = {
@@ -310,7 +310,7 @@ var ZapTransactionWebsitePieChart = new Chart(ctx6, {
 });
 
 // zap_application_website_pie_chart
-var zap_application_low = 82; var zap_application_medium = 56; var zap_application_high = 11;
+var zap_application_low = 107; var zap_application_medium = 80; var zap_application_high = 11;
 var zap_application_risk_quantity = zap_application_low + zap_application_medium + zap_application_high;
 
 var zap_application_website_pieData = {
@@ -358,7 +358,7 @@ var ZapApplicationWebsitePieChart = new Chart(ctx7, {
 });
 
 // zap_social_website_pie_chart
-var zap_social_low = 112; var zap_social_medium = 66; var zap_social_high = 7;
+var zap_social_low = 131; var zap_social_medium = 97; var zap_social_high = 7;
 var zap_social_risk_quantity = zap_social_low + zap_social_medium + zap_social_high;
 
 var zap_social_website_pieData = {
