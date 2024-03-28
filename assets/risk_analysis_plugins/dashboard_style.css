@@ -88,13 +88,10 @@
         font-size: 12px;
     }
 
-    table {
-        table-layout: fixed;
-    }
+}
 
-    .data-style {
-        margin-bottom: 2rem;
-    }
+table {
+    table-layout: fixed;
 }
 
 .table-header {
@@ -124,8 +121,4 @@ input[type=checkbox] {
 
 .sort-button {
     cursor: pointer;
-}
-
-#change-bg-btn {
-    display: none !important;
 }
