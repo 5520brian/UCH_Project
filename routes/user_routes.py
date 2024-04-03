@@ -32,12 +32,12 @@ def register_page():
     msg = UserService().check_form_data(username=form.username.data, password=form.password.data, confirm_password=form.confirm_password.data)
     if msg != None:
       flash(msg)
-      
-    result = UserService().do_register(username=form.username.data, password=form.password.data)
-    if result:
-      flash("帳戶註冊成功，請返回登入頁面")
-      return redirect(url_for('login_page'))
-    else:
-      flash("註冊失敗，請重新嘗試或聯絡我們")
+    else:  
+      result = UserService().do_register(username=form.username.data, password=form.password.data)
+      if result:
+        flash("帳戶註冊成功，請返回登入頁面")
+        return redirect(url_for('login_page'))
+      else:
+        flash("註冊失敗，請重新嘗試或聯絡我們")
 
   return render_template("/register.html", form=form)
