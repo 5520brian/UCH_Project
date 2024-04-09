@@ -11,9 +11,9 @@ def risk_analysis(website_name):
 
     website = ["nessus_social", "nessus_application", "nessus_transaction", "nessus_information", "zap_social", "zap_application", "zap_transaction", "zap_information"]
     if website_name in website:
-      collection, rejected, chart_data = GetWebsiteRiskData(website_name).get_website_data()
+      collection, rejected = GetWebsiteRiskData(website_name).get_website_data()
       if website_name[0] == "n":
-        low_risk, medium_risk, high_risk, critical_risk = GetWebsiteRiskData(website_name).get_nessus_risks()
+        low_risk, medium_risk, high_risk, critical_risk, chart_data = GetWebsiteRiskData(website_name).get_nessus_risks()
 
         return render_template(f"/risk_analysis/nessus/{website_name}.html",
                           low_risk=low_risk,
@@ -23,7 +23,7 @@ def risk_analysis(website_name):
                           collection=collection, rejected=rejected, chart_data=chart_data
                         )
       elif website_name[0] == "z":
-        low_risk, medium_risk, high_risk = GetWebsiteRiskData(website_name).get_zap_risks()
+        low_risk, medium_risk, high_risk, chart_data = GetWebsiteRiskData(website_name).get_zap_risks()
 
         return render_template(f"/risk_analysis/zap/{website_name}.html",
                           low_risk=low_risk,
