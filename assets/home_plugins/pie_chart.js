@@ -12,15 +12,14 @@ else {
     var labels_font_size = '20';
 }
 
-// social_website_pie_chart
-var social_low = 0; var social_medium = 8;
-var social_high = 2; var social_critical = 0;
-var social_risk_quantity = social_low + social_medium + social_high + social_critical;
+var nessus_social_low = parseInt(nessus_social[0]); var nessus_social_medium = parseInt(nessus_social[1]);
+var nessus_social_high = parseInt(nessus_social[2]); var nessus_social_critical = parseInt(nessus_social[3]);
+var social_risk_quantity = nessus_social_low + nessus_social_medium + nessus_social_high + nessus_social_critical;
 
 var social_website_pieData = {
-    labels: ["LOW：" + social_low, "MEDIUM：" + social_medium, "HIGH：" + social_high, "CRITICAL：" + social_critical],
+    labels: ["LOW：" + nessus_social_low, "MEDIUM：" + nessus_social_medium, "HIGH：" + nessus_social_high, "CRITICAL：" + nessus_social_critical],
     datasets: [{
-        data: [social_low, social_medium, social_high, social_critical],
+        data: nessus_social,
         backgroundColor: [
             'green',
             'yellow',
@@ -62,15 +61,14 @@ var SocialWebsitePieChart = new Chart(ctx1, {
     }
 });
 
-// application_website_pie_chart
-var application_low = 2; var application_medium = 45;
-var application_high = 4; var application_critical = 4;
-var application_risk_quantity = application_low + application_medium + application_high + application_critical;
+var nessus_application_low = parseInt(nessus_application[0]); var nessus_application_medium = parseInt(nessus_application[1]);
+var nessus_application_high = parseInt(nessus_application[2]); var nessus_application_critical = parseInt(nessus_application[3]);
+var application_risk_quantity = nessus_application_low + nessus_application_medium + nessus_application_high + nessus_application_critical;
 
 var application_website_pieData = {
-    labels: ["LOW：" + application_low, "MEDIUM：" + application_medium, "HIGH：" + application_high, "CRITICAL：" + application_critical],
+    labels: ["LOW：" + nessus_application_low, "MEDIUM：" + nessus_application_medium, "HIGH：" + nessus_application_high, "CRITICAL：" + nessus_application_critical],
     datasets: [{
-        data: [application_low, application_medium, application_high, application_critical],
+        data: nessus_application,
         backgroundColor: [
             'green',
             'yellow',
@@ -112,15 +110,14 @@ var ApplicationWebsitePieChart = new Chart(ctx2, {
     }
 });
 
-// transaction_website_pie_chart
-var transaction_low = 0; var transaction_medium = 20;
-var transaction_high = 5; var transaction_critical = 0;
-var transaction_risk_quantity = transaction_low + transaction_medium + transaction_high + transaction_critical;
+var nessus_transaction_low = parseInt(nessus_transaction[0]); var nessus_transaction_medium = parseInt(nessus_transaction[1]);
+var nessus_transaction_high = parseInt(nessus_transaction[2]); var nessus_transaction_critical = parseInt(nessus_transaction[3]);
+var transaction_risk_quantity = nessus_transaction_low + nessus_transaction_medium + nessus_transaction_high + nessus_transaction_critical;
 
 var transaction_website_pieData = {
-    labels: ["LOW：" + transaction_low, "MEDIUM：" + transaction_medium, "HIGH：" + transaction_high, "CRITICAL：" + transaction_critical],
+    labels: ["LOW：" + nessus_transaction_low, "MEDIUM：" + nessus_transaction_medium, "HIGH：" + nessus_transaction_high, "CRITICAL：" + nessus_transaction_critical],
     datasets: [{
-        data: [transaction_low, transaction_medium, transaction_high, transaction_critical],
+        data: nessus_transaction,
         backgroundColor: [
             'green',
             'yellow',
@@ -162,15 +159,14 @@ var TransactionWebsitePieChart = new Chart(ctx3, {
     }
 });
 
-// information_website_pie_chart
-var information_low = 5; var information_medium = 91;
-var information_high = 24; var information_critical = 18;
-var information_risk_quantity = information_low + information_medium + information_high + information_critical;
+var nessus_information_low = parseInt(nessus_information[0]); var nessus_information_medium = parseInt(nessus_information[1]);
+var nessus_information_high = parseInt(nessus_information[2]); var nessus_information_critical = parseInt(nessus_information[3]);
+var information_risk_quantity = nessus_information_low + nessus_information_medium + nessus_information_high + nessus_information_critical;
 
 var information_website_pieData = {
-    labels: ["LOW：" + information_low, "MEDIUM：" + information_medium, "HIGH：" + information_high, "CRITICAL：" + information_critical],
+    labels: ["LOW：" + nessus_information_low, "MEDIUM：" + nessus_information_medium, "HIGH：" + nessus_information_high, "CRITICAL：" + nessus_information_critical],
     datasets: [{
-        data: [information_low, information_medium, information_high, information_critical],
+        data: nessus_information,
         backgroundColor: [
             'green',
             'yellow',
@@ -212,14 +208,15 @@ var InformationWebsitePieChart = new Chart(ctx4, {
     }
 });
 
-// zap_information_website_pie_chart
-var zap_information_low = 147; var zap_information_medium = 104; var zap_information_high = 10;
-var zap_information_risk_quantity = zap_information_low + zap_information_medium + zap_information_high;
+var zap_social_low = parseInt(zap_social[0]);
+var zap_social_medium = parseInt(zap_social[1]);
+var zap_social_high = parseInt(zap_social[2]);
+var zap_social_risk_quantity = zap_social_low + zap_social_medium + zap_social_high;
 
-var zap_information_website_pieData = {
-    labels: ["LOW：" + zap_information_low, "MEDIUM：" + zap_information_medium, "HIGH：" + zap_information_high],
+var zap_social_website_pieData = {
+    labels: ["LOW：" + zap_social_low, "MEDIUM：" + zap_social_medium, "HIGH：" + zap_social_high],
     datasets: [{
-        data: [zap_information_low, information_medium, zap_information_high],
+        data: zap_social,
         backgroundColor: [
             'green',
             'yellow',
@@ -229,10 +226,10 @@ var zap_information_website_pieData = {
     }]
 };
 
-var ctx5 = document.getElementById('zap_information_website_pie_chart').getContext('2d');
-var ZapInformationWebsitePieChart = new Chart(ctx5, {
+var ctx5 = document.getElementById('zap_social_website_pie_chart').getContext('2d');
+var ZapSocialWebsitePieChart = new Chart(ctx5, {
     type: 'pie',
-    data: zap_information_website_pieData,
+    data: zap_social_website_pieData,
     options: {
         plugins: {
             legend: {
@@ -249,55 +246,7 @@ var ZapInformationWebsitePieChart = new Chart(ctx5, {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        var label = " " + Math.round(context.parsed / zap_information_risk_quantity * 100) + '%';
-                        return label;
-                    }
-                }
-            }
-        },
-
-        maintainAspectRatio: false,
-        aspectRatio: ratio,
-    }
-});
-
-// zap_transaction_website_pie_chart
-var zap_transaction_low = 127; var zap_transaction_medium = 76; var zap_transaction_high = 6;
-var zap_transaction_risk_quantity = zap_transaction_low + zap_transaction_medium + zap_transaction_high;
-
-var zap_transaction_website_pieData = {
-    labels: ["LOW：" + zap_transaction_low, "MEDIUM：" + zap_transaction_medium, "HIGH：" + zap_transaction_high],
-    datasets: [{
-        data: [zap_transaction_low, zap_transaction_medium, zap_transaction_high],
-        backgroundColor: [
-            'green',
-            'yellow',
-            'orange'
-        ]
-    }]
-};
-
-var ctx6 = document.getElementById('zap_transaction_website_pie_chart').getContext('2d');
-var ZapTransactionWebsitePieChart = new Chart(ctx6, {
-    type: 'pie',
-    data: zap_transaction_website_pieData,
-    options: {
-        plugins: {
-            legend: {
-                display: true,
-                position: 'right',
-                labels: {
-                    font: {
-                        size: labels_font_size
-                    },
-                    padding: labels_padding
-                }
-            },
-
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        var label = " " + Math.round(context.parsed / zap_transaction_risk_quantity * 100) + '%';
+                        var label = "  " + Math.round(context.parsed / zap_social_risk_quantity * 100) + '%';
                         return label;
                     }
                 }
@@ -309,14 +258,15 @@ var ZapTransactionWebsitePieChart = new Chart(ctx6, {
     }
 });
 
-// zap_application_website_pie_chart
-var zap_application_low = 107; var zap_application_medium = 80; var zap_application_high = 11;
+var zap_application_low = parseInt(zap_application[0]);
+var zap_application_medium = parseInt(zap_application[1]);
+var zap_application_high = parseInt(zap_application[2]);
 var zap_application_risk_quantity = zap_application_low + zap_application_medium + zap_application_high;
 
 var zap_application_website_pieData = {
     labels: ["LOW：" + zap_application_low, "MEDIUM：" + zap_application_medium, "HIGH：" + zap_application_high],
     datasets: [{
-        data: [zap_application_low, zap_application_medium, zap_application_high],
+        data: zap_application,
         backgroundColor: [
             'green',
             'yellow',
@@ -325,8 +275,8 @@ var zap_application_website_pieData = {
     }]
 };
 
-var ctx7 = document.getElementById('zap_application_website_pie_chart').getContext('2d');
-var ZapApplicationWebsitePieChart = new Chart(ctx7, {
+var ctx6 = document.getElementById('zap_application_website_pie_chart').getContext('2d');
+var ZapApplicationWebsitePieChart = new Chart(ctx6, {
     type: 'pie',
     data: zap_application_website_pieData,
     options: {
@@ -357,27 +307,27 @@ var ZapApplicationWebsitePieChart = new Chart(ctx7, {
     }
 });
 
-// zap_social_website_pie_chart
-var zap_social_low = 131; var zap_social_medium = 97; var zap_social_high = 7;
-var zap_social_risk_quantity = zap_social_low + zap_social_medium + zap_social_high;
+var zap_transaction_low = parseInt(zap_transaction[0]);
+var zap_transaction_medium = parseInt(zap_transaction[1]);
+var zap_transaction_high = parseInt(zap_transaction[2]);
+var zap_transaction_risk_quantity = zap_transaction_low + zap_transaction_medium + zap_transaction_high;
 
-var zap_social_website_pieData = {
-    labels: ["LOW：" + zap_social_low, "MEDIUM：" + zap_social_medium, "HIGH：" + zap_social_high],
+var zap_transaction_website_pieData = {
+    labels: ["LOW：" + zap_transaction_low, "MEDIUM：" + zap_transaction_medium, "HIGH：" + zap_transaction_high],
     datasets: [{
-        data: [zap_social_low, zap_social_medium, zap_social_high],
+        data: zap_transaction,
         backgroundColor: [
             'green',
             'yellow',
-            'orange',
-            'red'
+            'orange'
         ]
     }]
 };
 
-var ctx8 = document.getElementById('zap_social_website_pie_chart').getContext('2d');
-var ZapSocialWebsitePieChart = new Chart(ctx8, {
+var ctx7 = document.getElementById('zap_transaction_website_pie_chart').getContext('2d');
+var ZapTransactionWebsitePieChart = new Chart(ctx7, {
     type: 'pie',
-    data: zap_social_website_pieData,
+    data: zap_transaction_website_pieData,
     options: {
         plugins: {
             legend: {
@@ -394,7 +344,7 @@ var ZapSocialWebsitePieChart = new Chart(ctx8, {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        var label = "  " + Math.round(context.parsed / zap_social_risk_quantity * 100) + '%';
+                        var label = " " + Math.round(context.parsed / zap_transaction_risk_quantity * 100) + '%';
                         return label;
                     }
                 }
@@ -403,5 +353,55 @@ var ZapSocialWebsitePieChart = new Chart(ctx8, {
 
         maintainAspectRatio: false,
         aspectRatio: ratio
+    }
+});
+
+var zap_information_low = parseInt(zap_information[0]);
+var zap_information_medium = parseInt(zap_information[1]);
+var zap_information_high = parseInt(zap_information[2]);
+var zap_information_risk_quantity = zap_information_low + zap_information_medium + zap_information_high;
+
+var zap_information_website_pieData = {
+    labels: ["LOW：" + zap_information_low, "MEDIUM：" + zap_information_medium, "HIGH：" + zap_information_high],
+    datasets: [{
+        data: zap_information,
+        backgroundColor: [
+            'green',
+            'yellow',
+            'orange',
+            'red'
+        ]
+    }]
+};
+
+var ctx8 = document.getElementById('zap_information_website_pie_chart').getContext('2d');
+var ZapInformationWebsitePieChart = new Chart(ctx8, {
+    type: 'pie',
+    data: zap_information_website_pieData,
+    options: {
+        plugins: {
+            legend: {
+                display: true,
+                position: 'right',
+                labels: {
+                    font: {
+                        size: labels_font_size
+                    },
+                    padding: labels_padding
+                }
+            },
+
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        var label = " " + Math.round(context.parsed / zap_information_risk_quantity * 100) + '%';
+                        return label;
+                    }
+                }
+            }
+        },
+
+        maintainAspectRatio: false,
+        aspectRatio: ratio,
     }
 });
