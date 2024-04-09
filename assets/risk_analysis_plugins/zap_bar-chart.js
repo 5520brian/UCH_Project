@@ -1,12 +1,12 @@
 const ctx = document.getElementById('myChart')
-console.log(chartData[0])
+
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ['LOW', 'MEDIUM', 'HIGH'],
         datasets: [{
             label: '風險數量',
-            data: chartData[0],
+            data: chartData,
             backgroundColor: [
                 'rgba(75, 192, 192, 0.7)',
                 'rgba(255, 159, 64, 0.7)',
