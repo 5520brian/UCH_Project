@@ -138,7 +138,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     tableContainer.style.display = 'none';
                     detailInfo.style.display = 'block';
                     backToTableBtn.style.display = 'block';
-                    detailInfoText.innerHTML = `<h1 class='my-4'>${data.risk_name}</h1><hr />
+
+                    let severity_color = '';
+                    if (data.risk_severity === 'low') {
+                        severity_color = 'text-bg-info'
+                    }
+                    else if (data.risk_severity === 'medium') {
+                        severity_color = 'text-bg-orange'
+                    }
+                    else if (data.risk_severity === 'high') {
+                        severity_color = 'text-bg-warning'
+                    }
+                    else {
+                        severity_color = 'text-bg-danger'
+                    }
+                    detailInfoText.innerHTML = `
+                                                <h1 class='my-4'>
+                                                <span class="badge ${severity_color} h1">${data.risk_severity.toUpperCase()}</span>
+                                                ${data.risk_name}
+                                                </h1>
+                                                
                                                 <h2>風險描述 - </h2>
                                                 <p class='my-3'>${data.risk_description}<p><hr />
                                                 <h2>修復建議 - </h2>
