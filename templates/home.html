@@ -104,7 +104,10 @@
         <div class="p-4 align-items-center rounded-3 border shadow-lg">
             <div class="p-3 p-lg-4 pt-lg-3">
                 <h1 class="display-4 fw-bold lh-1">網頁弱點分析</h1>
-                <p class="lead">我們提供各種類型網站的弱點分析報告，幫助您了解網站的安全漏洞與風險。</p>
+                <p class="lead fw-bold mt-3">隨著網路技術的蓬勃發展，網路上的惡意活動愈來愈頻繁，不論是個人或是企業，網站弱點掃描的技術
+                    可以幫助開發者了解所管理的設備是否存在漏洞，本專題我們分別使用Nessus和
+                    OWASP ZAP兩種工具對 作業系統主機及網站實施掃描。
+                </p>
             </div>
         </div>
     </div>
@@ -319,11 +322,11 @@
                 <div class="d-flex">
                     <div class="ms-4">
                         <h4 class="fw-bold mb-3">關於我們</h4>
-                        <ul class="nav flex-column">
+                        <ul class="nav flex-column fw-bold">
                             <li class="nav-item mb-2">
                                 <a href="{{ url_for('about_page', title='contact') }}" class="nav-link p-0">聯繫我們</a>
                             </li>
-                            <li class="nav-item mb-2">
+                            <li class="nav-item">
                                 <a href="{{ url_for('about_page', title='service') }}" class="nav-link p-0">服務條款</a>
                             </li>
                         </ul>
@@ -331,11 +334,11 @@
 
                     <div class="ms-4">
                         <h4 class="fw-bold mb-3">使用者須知</h4>
-                        <ul class="nav flex-column">
+                        <ul class="nav flex-column fw-bold">
                             <li class="nav-item mb-2">
                                 <a href="{{ url_for('instruct_page', title='privacy') }}" class="nav-link p-0">隱私政策</a>
                             </li>
-                            <li class="nav-item mb-2">
+                            <li class="nav-item">
                                 <a href="{{ url_for('instruct_page', title='disclaimer') }}"
                                     class="nav-link p-0">免責聲明</a>
                             </li>
