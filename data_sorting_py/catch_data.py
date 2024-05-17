@@ -70,5 +70,3 @@ else:
     exit()
 
 wb.save(file_name)
-
-print('Program execution completed.')
